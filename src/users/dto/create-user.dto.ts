@@ -1,4 +1,7 @@
 import { IsString, IsEmail, MinLength } from 'class-validator';
+import { BeforeInsert } from 'typeorm';
+import { BeforeUpdate } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 export class CreateUserDto {
   @IsString()
