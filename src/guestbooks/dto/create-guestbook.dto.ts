@@ -1,10 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  MinLength,
-  IsNumber,
-  IsPositive,
-} from 'class-validator';
+import { IsString, IsNotEmpty, MinLength } from 'class-validator';
 
 export class CreateGuestbookDto {
   @IsString()
@@ -16,8 +10,4 @@ export class CreateGuestbookDto {
   @IsNotEmpty()
   @MinLength(5)
   content: string;
-
-  @IsNumber()
-  @IsPositive()
-  userId: number;
 }

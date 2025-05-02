@@ -14,12 +14,11 @@ export class GuestbooksService {
     private usersService: UsersService,
   ) {}
 
-  async create(createGuestbookDto: CreateGuestbookDto): Promise<Guestbook> {
-    const user = await this.usersService.findOne(createGuestbookDto.userId);
+  async create(createGuestbookDto: CreateGuestbookDto, userId: number): Promise<Guestbook> {
+    console.log(userId);
+    const user = await this.usersService.findOne(userId);
     if (!user) {
-      throw new NotFoundException(
-        `User with ID ${createGuestbookDto.userId} not found`,
-      );
+      throw new NotFoundException(`User with ID ${userId} not found`);
     }
     const guestbook = this.guestbooksRepository.create({
       ...createGuestbookDto,
@@ -43,10 +42,7 @@ export class GuestbooksService {
     return guestbook;
   }
 
-  async update(
-    id: number,
-    updateGuestbookDto: UpdateGuestbookDto,
-  ): Promise<Guestbook> {
+  async update(id: number, updateGuestbookDto: UpdateGuestbookDto): Promise<Guestbook> {
     const guestbook = await this.findOne(id);
     Object.assign(guestbook, updateGuestbookDto);
     return this.guestbooksRepository.save(guestbook);
